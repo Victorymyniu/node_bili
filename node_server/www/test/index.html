@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        html,body{height: 100%;}
+    h1{
+        position: absolute;
+        top:200px;
+        left:100px;
+        background: red;
+        padding: 0;
+        margin: 0;
+        border: 10px solid blue;
+    }
+    </style>
+</head>
+<body>
+    <h1>宇哥专属</h1>
+    <img src="./test.jpg" id="images" alt="">
+    <button onclick="upload()">点我下载</button>
+    <script>
+      
+  
+    function upload() {
+      console.log(111);
+      const image = new Image();
+      // 解决跨域 canvas 污染问题
+      image.setAttribute("crossOrigin", "anonymous");
+      image.onload = function() {
+        const canvas = document.createElement("canvas");
+        canvas.width = image.width;
+        canvas.height = image.height;
+        const context = canvas.getContext("2d");
+        context.drawImage(image, 0, 0, image.width, image.height);
+        //得到图片的base64编码数据
+        const url = canvas.toDataURL("image/png");
+        // 生成一个 a 标签
+        const a = document.createElement("a");
+        // 创建一个点击事件
+        const event = new MouseEvent("click");
+        // 将 a 的 download 属性设置为我们想要下载的图片的名称，若 name 不存在则使用'图片'作为默认名称
+        a.download = name || "图片";
+        // 将生成的 URL 设置为 a.href 属性
+        a.href = url;
+        // 触发 a 的点击事件
+        a.dispatchEvent(event);
+        // return a;
+      };
+      image.src = document.getElementById("images").src;
+    }
+
+    </script>
+</body>
+</html>
