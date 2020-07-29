@@ -1,3 +1,4 @@
+//app.js 基本信息的设置
 const querystring = require('querystring')
 const handleBlogRouter = require('./src/router/blog')
 const handleUserRouter = require('./src/router/user')
