@@ -29,7 +29,15 @@ const getDetail = (id) => {
   }
 }
 
+const newBlog = (blogData = {}) => {
+  // blogData 是一个博客对象 包含title content 属性
+  console.log('newBlog', blogData)
+  return {
+    id: 3 // 表示新建博客，插入到数据表里面的id
+  }
+}
 module.exports = {
   getList,
-  getDetail
+  getDetail,
+  newBlog
 }
