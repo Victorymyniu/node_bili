@@ -33,20 +33,19 @@ const getPostData = (req) => {
 const serverHandle = (req,res) => {
   // 设置返回格式 JSON
   res.setHeader('Content-type','application/json')
-
   // 处理path
   const url = req.url
   req.path = url.split('?')[0]
-
   // 解析query
   req.query = querystring.parse(url.split('?')[1])
-  
-  // 处理pos data
+  // 处理post data
   getPostData(req).then(postData => {
     req.body = postData
+    console.log(req.body,7777)
     // 处理blog路由
     const blogData = handleBlogRouter(req,res)
     if (blogData) {
+      console.log('进入blog路由')
       res.end(
         JSON.stringify(blogData)
       )
@@ -55,6 +54,7 @@ const serverHandle = (req,res) => {
     // 处理user路由
     const userData = handleUserRouter(req,res)
     if (userData) {
+      console.log('进入登录路由')
       res.end(
         JSON.stringify(userData)
       )
