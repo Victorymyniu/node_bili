@@ -38,6 +38,20 @@ const serverHandle = (req,res) => {
   req.path = url.split('?')[0]
   // 解析query
   req.query = querystring.parse(url.split('?')[1])
+  //解析 cookie
+  req.cookie = {}
+  const cookieStr = req.headers.cookie || '' // k1=v1;k3=v3;
+  cookieStr.split(';').forEach((item) => {
+    if (!item) {
+      return
+    } else {
+      const arr = item.split('=')
+      const key = arr[0].trim()
+      const val = arr[1].trim()
+      req.cookie[key] = val
+    }
+  })
+  console.log(req.cookie, 5555)
   // 处理post data
   getPostData(req).then(postData => {
     req.body = postData
