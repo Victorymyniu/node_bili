@@ -6,12 +6,10 @@ const handleUserRouter = require('./src/router/user')
 // session 数据
 const SESSION_DATA = {}
 
-
 // 获取cookie的过期时间
 const getCookieExpires = () => {
   const d = new Date()
   d.setTime(d.getTime() + (24 * 60 * 60 * 1000))
-  // console.log('d.toGMTString() is', d.toGMTString())
   return d.toGMTString()
 }
 
@@ -54,7 +52,6 @@ const serverHandle = (req,res) => {
   //解析 cookie
   req.cookie = {}
   const cookieStr = req.headers.cookie || '' // k1=v1;k3=v3;
-  // console.log(cookieStr,321)
   cookieStr.split(';').forEach((item) => {
     if (!item) {
       return
@@ -69,7 +66,7 @@ const serverHandle = (req,res) => {
 
   //解析 session
   let needSetCookie = false
-  let userId = req.cookie.userid
+  let userId = req.cookie.userId
   if (userId) {
     if (!SESSION_DATA[userId]){
       SESSION_DATA[userId] = {}
@@ -84,7 +81,7 @@ const serverHandle = (req,res) => {
   // 处理post data
   getPostData(req).then(postData => {
     req.body = postData
-    console.log(req.body,7777)
+
     // const blogData = handleBlogRouter(req,res)
     // if (blogData) {
     //   console.log('进入blog路由')
