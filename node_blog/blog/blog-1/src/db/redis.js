@@ -9,7 +9,7 @@ redisClient.on('error',err => {
 
 function set(key, val) {
   if (typeof val === 'object') {
-    val = JSON.stringify(val)
+    val = JSON.stringify(val) // 转成字符串格式
   }
   redisClient.set(key, val, redis.print)
 }
