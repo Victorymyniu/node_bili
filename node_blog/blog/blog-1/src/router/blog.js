@@ -49,7 +49,7 @@ const handleBlogRouter = (req,res) =>{
       // 未登录
       return loginCheck
     }
-    req.body.author = req.session.username //假数据 待开发登录时再改成真实数据
+    req.body.author = req.session.username
     const result = newBlog(req.body)
     return result.then(data => {
       return new SuccessModel(data)
@@ -80,7 +80,7 @@ const handleBlogRouter = (req,res) =>{
       // 未登录
       return loginCheck
     }
-    const author = req.session.username //假数据 待开发登录时再改成真实数据
+    const author = req.session.username
     const result = delBlog(id,author)
     return result.then(val => {
       if (val) {
