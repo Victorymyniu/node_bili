@@ -24,6 +24,11 @@ const handleBlogRouter = (req,res) =>{
     const keyword = req.query.keyword || ''
     // const listData = getList(author,keyword)
     // return new SuccessModel(listData)
+    const loginCheckResult = loginCheck(req)
+    if (loginCheckResult) {
+      // 未登录
+      return loginCheckResult
+    }
     const result = getList(author,keyword)
     return result.then(listData => {
       return new SuccessModel(listData)
@@ -47,7 +52,7 @@ const handleBlogRouter = (req,res) =>{
     const loginCheckResult = loginCheck(req)
     if (loginCheckResult) {
       // 未登录
-      return loginCheck
+      return loginCheckResult
     }
     req.body.author = req.session.username
     const result = newBlog(req.body)
@@ -61,7 +66,7 @@ const handleBlogRouter = (req,res) =>{
     const loginCheckResult = loginCheck(req)
     if (loginCheckResult) {
       // 未登录
-      return loginCheck
+      return loginCheckResult
     }
     const result = updateBlog(id, req.body)
     return result.then(val => {
@@ -78,7 +83,7 @@ const handleBlogRouter = (req,res) =>{
     const loginCheckResult = loginCheck(req)
     if (loginCheckResult) {
       // 未登录
-      return loginCheck
+      return loginCheckResult
     }
     const author = req.session.username
     const result = delBlog(id,author)
