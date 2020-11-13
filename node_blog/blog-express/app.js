@@ -3,9 +3,12 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');// 解析 cookie 处理cookie
 var logger = require('morgan'); // 记录日志
-// 引入定义路由文件
+
+// 引入路由模块
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+const blogRouter = require('./routes/blog');
+const useRouter = require('./routes/user');
 
 var app = express();
 
@@ -19,9 +22,11 @@ app.use(express.urlencoded({ extended: false })); // 解析前端Post提交的�
 app.use(cookieParser()); // 注册解析 cookie插件
 app.use(express.static(path.join(__dirname, 'public')));
 
-//处理路由
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+//注册路由，设置路由的基本访问路径
+app.use('/', indexRouter); // http://127.0.0.1:3000/
+app.use('/users', usersRouter); //http://127.0.0.1:3000/users
+app.use('/api/blog', blogRouter);
+app.use('/api/user', useRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
